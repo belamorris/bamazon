@@ -1,0 +1,27 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "amazon like app using the command line",
+  "main": "bamazonManager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/belamorris/bamazon.git"
+  },
+  "keywords": [
+    "bamazon",
+    "node",
+    "mysyql"
+  ],
+  "author": "Robert Morris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/belamorris/bamazon/issues"
+  },
+  "homepage": "https://github.com/belamorris/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^6.2.2"
+  }
+}
