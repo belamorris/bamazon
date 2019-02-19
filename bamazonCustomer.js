@@ -48,6 +48,27 @@ connection.connect(function(err) {
 
 	  	console.log("---------------------------------------------------------------------\n");
 
-	  	
+	  	promptUser();
 	})
-}
+};
+
+//prompt the user to choose an item
+function promptUser() {
+//use inquirer to prompt the user
+inquirer.prompt([
+    {
+        type: "input",
+        name: "item_id",
+        message: "Please enter the item id you would like to purchase.",
+        filter: Number 
+    },
+    {
+        type: "input",
+        name: "quantity",
+        message: "How many would you like to buy?",
+        filter: Number
+    }
+]).then(function(input){
+    console.log("customer has selcted: \n item_id " + input.item_id + " \n quantity of " + input.quantity);
+});
+};
