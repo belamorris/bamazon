@@ -69,6 +69,29 @@ inquirer.prompt([
         filter: Number
     }
 ]).then(function(input){
-    console.log("customer has selcted: \n item_id " + input.item_id + " \n quantity of " + input.quantity);
+    //console.log("customer has selcted: \n item_id " + input.item_id + " \n quantity of " + input.quantity);
+    var item = input.item_id;
+    var quantity = input.quantity;
+
+    //check database to confirm item exists
+    var queryString = "SELECT * FROM products WHERE ?";
+    
+    connection.query(queryString, {item_id: item}, function(err, data){
+        if (err) throw err;
+
+        //if user has selected invalid item
+        if(data.length === 0) {
+            console.log("Invalid ID Please select another");
+            displayInventory();
+        } else {
+            var product = data[0];
+             console.log('product = ' + JSON.stringify(product));
+				 console.log('product.stock_quantity = ' + product.stock_quantity);
+            //If theres enough quantity of item
+            if (quantity <= product.stock_quntity) {
+                console.log("yes");
+            }
+        }
+    });
 });
 };
