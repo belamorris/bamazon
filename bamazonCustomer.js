@@ -85,11 +85,36 @@ inquirer.prompt([
             displayInventory();
         } else {
             var product = data[0];
-             console.log('product = ' + JSON.stringify(product));
-				 console.log('product.stock_quantity = ' + product.stock_quantity);
+             //console.log('product = ' + JSON.stringify(product));
+				// console.log('product.stock_quantity = ' + product.stock_quantity);
             //If theres enough quantity of item
-            if (quantity <= product.stock_quntity) {
-                console.log("yes");
+            if (quantity <= product.stock_quantity) {
+               // console.log("yes");
+
+               
+                var newQuantity = product.stock_quantity - quantity;
+            //console.log(newQuantity);
+                //update the inventory
+               var query = connection.query("UPDATE products SET ? WHERE ? ",
+               [
+                   {
+                       stock_quantity: newQuantity
+                   },
+                   {
+                    item_id: item
+                   }
+
+               ], 
+               function(err, res) {
+                    if (err) throw err;
+
+                    console.log("Your order has been placed! Your total is $" + product.price * quantity);
+                    console.log("Thank You come again!")
+                    connection.end();
+                })
+            } else {
+                console.log("Sorry there is not enough of that product. Please change your order.");
+                displayInventory();
             }
         }
     });
