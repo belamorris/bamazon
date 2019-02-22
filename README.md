@@ -11,3 +11,18 @@ will not go through.
 Before you can use this app make sure you have installed all the dependencies you need for the project.
 Once you have Node.js and MYSQL installed navigate to the working directory in your terminal and do a npm install to get all the node modules you'll need. Next you type in node bamazonCustomer.js and hit enter and you are in the app. Just follow the prompts and happy Shopping.
 
+#Built With
+
+* MYSQL
+* Node.js
+* JavaScript
+
+#Demo
+
+![ ](images/screenshot1.png)
+![ ](images/screenshot2.png)
+![ ](images/screenshot3.png)
+
+#MYSQL database getting updated
+
+![ ](images/MYSQL.png)
