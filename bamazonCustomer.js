@@ -1,7 +1,7 @@
 // required dependencies
 var inquirer = require("inquirer");
 var mysql = require("mysql");
-
+var Table = require('cli-table');
 // Mysql connection
 var connection = mysql.createConnection({
     host: "localhost",
@@ -23,30 +23,36 @@ connection.connect(function(err) {
   });
 
   function displayInventory() {
-	// console.log('___ENTER displayInventory___');
+    var table = new Table({
+        head: ['ID', 'Item', 'Department', 'Price', 'Stock'],
+        colWidths: [10, 30, 30, 30, 30]
+    });
 
 	// Construct the db query string
-	queryStr = 'SELECT * FROM products';
+	//queryStr = 'SELECT * FROM products';
 
 	// Make the db query
-	connection.query(queryStr, function(err, data) {
+	connection.query("SELECT * FROM products", function(err, res) {
 		if (err) throw err;
 
-		console.log('Existing Inventory: ');
-		console.log('...................\n');
+		for (var i = 0; i < res.length; i++) {
+            var itemId = res[i].item_id,
+            productName = res[i].product_name,
+            departmentName = res[i].department_name,
+            price = res[i].price,
+            stockQuantity = res[i].stock_quantity;
 
-		var strOut = '';
-		for (var i = 0; i < data.length; i++) {
-			strOut = '';
-			strOut += 'Item ID: ' + data[i].item_id + '  //  ';
-			strOut += 'Product Name: ' + data[i].product_name + '  //  ';
-			strOut += 'Department: ' + data[i].department_name + '  //  ';
-			strOut += 'Price: $' + data[i].price + '\n';
-
-			console.log(strOut);
+            table.push(
+                [itemId, productName, departmentName, price, stockQuantity]
+            );
 		}
 
-	  	console.log("---------------------------------------------------------------------\n");
+        console.log("");
+        console.log("====================================================== Current Bamazon Inventory ======================================================");
+        console.log("");
+        console.log(table.toString());
+        console.log("");
+
 
 	  	promptUser();
 	})
